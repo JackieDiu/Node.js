@@ -1,0 +1,13 @@
+const router = require('express').Router();
+const learningResourcesController = require('../controllers/learningResources.controller');
+const learningResourcesPost = require('../models/LearningResourcesPost');
+const learningRecourcesPut = require('../models/LearningResourcesPut');
+const validateBody = require('../filters/validate-body');
+
+router.get('/', learningResourcesController.readAll)
+router.get('/:id', learningResourcesController.readById)
+router.post('/', validateBody(learningResourcesPost), learningResourcesController.create)
+router.put('/:id', validateBody(learningRecourcesPut), learningResourcesController.put)
+router.delete('/:id', learningResourcesController.del)
+
+module.exports = router;
