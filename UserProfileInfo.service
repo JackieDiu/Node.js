@@ -1,0 +1,21 @@
+const create = item => {
+  const promise = mssql.executeProc("UserProfileInfos_Insert", sqlRequest => {
+    sqlRequest.addParameter("UserId", TYPES.Int, item.userId);
+    sqlRequest.addParameter("Bio", TYPES.NVarChar, item.bio, {
+      length: 2000
+    });
+    sqlRequest.addParameter("ImageUrl", TYPES.NVarChar, item.imageUrl, {
+      length: 2083
+    });
+    sqlRequest.addParameter("Dob", TYPES.Date, item.dob);
+    sqlRequest.addParameter("RaceEthnicityId", TYPES.Int, item.raceEthnicityId);
+    sqlRequest.addParameter("LevelOfEducationId", TYPES.Int, item.levelOfEducationId);
+    sqlRequest.addParameter("HouseholdIncome", TYPES.Int, item.householdIncome);
+    sqlRequest.addParameter("YearsInBusiness", TYPES.Int, item.yearsInBusiness);
+    sqlRequest.addOutputParameter("Id", TYPES.Int, item.id);
+  })
+    .then(response => {
+      return response.outputParameters;
+    });
+  return promise;
+};
